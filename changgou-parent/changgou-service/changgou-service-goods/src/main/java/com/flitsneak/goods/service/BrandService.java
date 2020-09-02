@@ -5,51 +5,71 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
+/****
+ * @Author:shenkunlin
+ * @Description:Brand业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface BrandService {
 
-    /**
-     * 查询所有品牌
+    /***
+     * Brand多条件分页查询
+     * @param brand
+     * @param page
+     * @param size
      * @return
      */
-    List<Brand> findAll();
+    PageInfo<Brand> findPage(Brand brand, int page, int size);
 
-    /**
-     * 根据id查询品牌
+    /***
+     * Brand分页查询
+     * @param page
+     * @param size
      * @return
-     * @param id
      */
-    Brand findById(Integer id);
+    PageInfo<Brand> findPage(int page, int size);
 
-    /**
-     * 增加品牌
-     * @param brand
-     */
-    void addBrand(Brand brand);
-
-    /**
-     * 修改品牌信息
-     * @param brand
-     */
-    void updateBrand(Brand brand);
-
-    /**
-     * delete brand by id
-     * @param id
-     */
-    void deleteBrand(Integer id);
-
-    /**
-     * search brand by multi-term
+    /***
+     * Brand多条件搜索方法
      * @param brand
      * @return
      */
     List<Brand> findList(Brand brand);
 
-    PageInfo<Brand> findPage(Integer page,Integer size);
+    /***
+     * 删除Brand
+     * @param id
+     */
+    void delete(Integer id);
+
+    /***
+     * 修改Brand数据
+     * @param brand
+     */
+    void update(Brand brand);
+
+    /***
+     * 新增Brand
+     * @param brand
+     */
+    void add(Brand brand);
+
     /**
-     * 根据条件分页查询
-     * @param page,size,brand
+     * 根据ID查询Brand
+     * @param id
      * @return
      */
-    PageInfo<Brand> page(Integer page, Integer size, Brand brand);
+     Brand findById(Integer id);
+
+    /***
+     * 查询所有Brand
+     * @return
+     */
+    List<Brand> findAll();
+
+    /***
+     * 根据分类ID查询品牌集合
+     * @param categoryid:分类ID
+     */
+    List<Brand> findByCategory(Integer categoryid);
 }

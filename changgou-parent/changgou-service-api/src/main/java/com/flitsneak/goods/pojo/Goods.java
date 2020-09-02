@@ -1,7 +1,6 @@
 package com.flitsneak.goods.pojo;
 
-import com.changgou.goods.pojo.Sku;
-import com.changgou.goods.pojo.Spu;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
