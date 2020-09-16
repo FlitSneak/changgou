@@ -3,12 +3,12 @@ package com.flitsneak.canal;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.flitsneak.content.feign.ContentFeign;
+import com.flitsneak.entity.Result;
 import com.flitsneak.pojo.Content;
 import com.xpand.starter.canal.annotation.DeleteListenPoint;
 import com.xpand.starter.canal.annotation.InsertListenPoint;
 import com.xpand.starter.canal.annotation.ListenPoint;
 import com.xpand.starter.canal.annotation.UpdateListenPoint;
-import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 

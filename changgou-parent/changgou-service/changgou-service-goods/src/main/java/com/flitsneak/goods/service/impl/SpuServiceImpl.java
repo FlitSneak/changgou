@@ -1,7 +1,7 @@
 package com.flitsneak.goods.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.changgou.goods.pojo.*;
+import com.flitsneak.goods.pojo.*;
 import com.flitsneak.entity.IdWorker;
 import com.flitsneak.goods.dao.BrandMapper;
 import com.flitsneak.goods.dao.CategoryMapper;

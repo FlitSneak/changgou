@@ -1,7 +1,7 @@
-package com.flitsneak.goods.feign;
-import com.changgou.goods.pojo.Pref;
+package com.flitsneak.feign;
+import com.flitsneak.entity.Result;
+import com.flitsneak.goods.pojo.Pref;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

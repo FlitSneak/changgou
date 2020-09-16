@@ -1,10 +1,10 @@
 package com.flitsneak.goods.controller;
 
-import com.changgou.goods.pojo.Para;
+import com.flitsneak.entity.Result;
+import com.flitsneak.entity.StatusCode;
+import com.flitsneak.goods.pojo.Para;
 import com.flitsneak.goods.service.ParaService;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
-import entity.StatusCode;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class ParaController {
     public Result<PageInfo> findPage(@RequestBody(required = false) @ApiParam(name = "Para对象",value = "传入JSON数据",required = false) Para para, @PathVariable  int page, @PathVariable  int size){
         //调用ParaService实现分页条件查询Para
         PageInfo<Para> pageInfo = paraService.findPage(para, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK,"查询成功",pageInfo);
     }
 
     /***

@@ -1,5 +1,5 @@
 package com.flitsneak.goods.dao;
-import com.changgou.goods.pojo.StockBack;
+import com.flitsneak.goods.pojo.StockBack;
 import tk.mybatis.mapper.common.Mapper;
 
 /****

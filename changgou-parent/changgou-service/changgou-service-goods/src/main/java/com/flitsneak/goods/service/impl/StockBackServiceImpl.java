@@ -1,7 +1,7 @@
 package com.flitsneak.goods.service.impl;
 
 import com.flitsneak.goods.dao.StockBackMapper;
-import com.changgou.goods.pojo.StockBack;
+import com.flitsneak.goods.pojo.StockBack;
 import com.flitsneak.goods.service.StockBackService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

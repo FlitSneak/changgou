@@ -1,7 +1,8 @@
 package com.flitsneak.content.feign;
 
+import com.flitsneak.entity.Result;
 import com.flitsneak.pojo.Content;
-import entity.Result;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

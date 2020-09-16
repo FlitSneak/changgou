@@ -1,10 +1,10 @@
 package com.flitsneak.goods.controller;
 
-import com.changgou.goods.pojo.Sku;
+import com.flitsneak.entity.Result;
+import com.flitsneak.entity.StatusCode;
+import com.flitsneak.goods.pojo.Sku;
 import com.flitsneak.goods.service.SkuService;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
-import entity.StatusCode;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class SkuController {
     public Result<PageInfo> findPage(@RequestBody(required = false) @ApiParam(name = "Sku对象",value = "传入JSON数据",required = false) Sku sku, @PathVariable  int page, @PathVariable  int size){
         //调用SkuService实现分页条件查询Sku
         PageInfo<Sku> pageInfo = skuService.findPage(sku, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK,"查询成功",pageInfo);
     }
 
     /***
@@ -143,5 +143,15 @@ public class SkuController {
         //调用SkuService实现查询所有Sku
         List<Sku> list = skuService.findAll();
         return new Result<List<Sku>>(true, StatusCode.OK,"查询成功",list) ;
+    }
+    /***
+     * 根据审核状态查询Sku
+     * @param status
+     * @return
+     */
+    @GetMapping("/status/{status}")
+    public Result<List<Sku>> findByStatus(@PathVariable String status){
+        List<Sku> list = skuService.findByStatus(status);
+        return new Result<List<Sku>>(true,StatusCode.OK,"查询成功",list);
     }
 }

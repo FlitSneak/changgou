@@ -1,7 +1,7 @@
-package com.flitsneak.goods.feign;
-import com.changgou.goods.pojo.Category;
+package com.flitsneak.feign;
+import com.flitsneak.entity.Result;
+import com.flitsneak.goods.pojo.CategoryBrand;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.List;
  * @Date 2019/6/18 13:58
  *****/
 @FeignClient(name="goods")
-@RequestMapping("/category")
-public interface CategoryFeign {
+@RequestMapping("/categoryBrand")
+public interface CategoryBrandFeign {
 
     /***
-     * Category分页条件搜索实现
-     * @param category
+     * CategoryBrand分页条件搜索实现
+     * @param categoryBrand
      * @param page
      * @param size
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    Result<PageInfo> findPage(@RequestBody(required = false) Category category, @PathVariable int page, @PathVariable  int size);
+    Result<PageInfo> findPage(@RequestBody(required = false) CategoryBrand categoryBrand, @PathVariable int page, @PathVariable  int size);
 
     /***
-     * Category分页搜索实现
+     * CategoryBrand分页搜索实现
      * @param page:当前页
      * @param size:每页显示多少条
      * @return
@@ -37,11 +37,11 @@ public interface CategoryFeign {
 
     /***
      * 多条件搜索品牌数据
-     * @param category
+     * @param categoryBrand
      * @return
      */
     @PostMapping(value = "/search" )
-    Result<List<Category>> findList(@RequestBody(required = false) Category category);
+    Result<List<CategoryBrand>> findList(@RequestBody(required = false) CategoryBrand categoryBrand);
 
     /***
      * 根据ID删除品牌数据
@@ -52,34 +52,34 @@ public interface CategoryFeign {
     Result delete(@PathVariable Integer id);
 
     /***
-     * 修改Category数据
-     * @param category
+     * 修改CategoryBrand数据
+     * @param categoryBrand
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    Result update(@RequestBody Category category,@PathVariable Integer id);
+    Result update(@RequestBody CategoryBrand categoryBrand,@PathVariable Integer id);
 
     /***
-     * 新增Category数据
-     * @param category
+     * 新增CategoryBrand数据
+     * @param categoryBrand
      * @return
      */
     @PostMapping
-    Result add(@RequestBody Category category);
+    Result add(@RequestBody CategoryBrand categoryBrand);
 
     /***
-     * 根据ID查询Category数据
+     * 根据ID查询CategoryBrand数据
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    Result<Category> findById(@PathVariable Integer id);
+    Result<CategoryBrand> findById(@PathVariable Integer id);
 
     /***
-     * 查询Category全部数据
+     * 查询CategoryBrand全部数据
      * @return
      */
     @GetMapping
-    Result<List<Category>> findAll();
+    Result<List<CategoryBrand>> findAll();
 }

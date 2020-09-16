@@ -1,10 +1,10 @@
 package com.flitsneak.goods.controller;
 
-import com.changgou.goods.pojo.StockBack;
+import com.flitsneak.entity.Result;
+import com.flitsneak.entity.StatusCode;
+import com.flitsneak.goods.pojo.StockBack;
 import com.flitsneak.goods.service.StockBackService;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
-import entity.StatusCode;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class StockBackController {
     public Result<PageInfo> findPage(@RequestBody(required = false) @ApiParam(name = "StockBack对象",value = "传入JSON数据",required = false) StockBack stockBack, @PathVariable  int page, @PathVariable  int size){
         //调用StockBackService实现分页条件查询StockBack
         PageInfo<StockBack> pageInfo = stockBackService.findPage(stockBack, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK,"查询成功",pageInfo);
     }
 
     /***

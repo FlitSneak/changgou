@@ -1,7 +1,7 @@
-package com.flitsneak.goods.feign;
-import com.changgou.goods.pojo.Brand;
+package com.flitsneak.feign;
+import com.flitsneak.entity.Result;
+import com.flitsneak.goods.pojo.Sku;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.List;
  * @Date 2019/6/18 13:58
  *****/
 @FeignClient(name="goods")
-@RequestMapping("/brand")
-public interface BrandFeign {
+@RequestMapping("/sku")
+public interface SkuFeign {
 
     /***
-     * Brand分页条件搜索实现
-     * @param brand
+     * Sku分页条件搜索实现
+     * @param sku
      * @param page
      * @param size
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    Result<PageInfo> findPage(@RequestBody(required = false) Brand brand, @PathVariable int page, @PathVariable  int size);
+    Result<PageInfo> findPage(@RequestBody(required = false) Sku sku, @PathVariable int page, @PathVariable  int size);
 
     /***
-     * Brand分页搜索实现
+     * Sku分页搜索实现
      * @param page:当前页
      * @param size:每页显示多少条
      * @return
@@ -37,11 +37,11 @@ public interface BrandFeign {
 
     /***
      * 多条件搜索品牌数据
-     * @param brand
+     * @param sku
      * @return
      */
     @PostMapping(value = "/search" )
-    Result<List<Brand>> findList(@RequestBody(required = false) Brand brand);
+    Result<List<Sku>> findList(@RequestBody(required = false) Sku sku);
 
     /***
      * 根据ID删除品牌数据
@@ -49,37 +49,40 @@ public interface BrandFeign {
      * @return
      */
     @DeleteMapping(value = "/{id}" )
-    Result delete(@PathVariable Integer id);
+    Result delete(@PathVariable Long id);
 
     /***
-     * 修改Brand数据
-     * @param brand
+     * 修改Sku数据
+     * @param sku
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    Result update(@RequestBody Brand brand,@PathVariable Integer id);
+    Result update(@RequestBody Sku sku,@PathVariable Long id);
 
     /***
-     * 新增Brand数据
-     * @param brand
+     * 新增Sku数据
+     * @param sku
      * @return
      */
     @PostMapping
-    Result add(@RequestBody Brand brand);
+    Result add(@RequestBody Sku sku);
 
     /***
-     * 根据ID查询Brand数据
+     * 根据ID查询Sku数据
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    Result<Brand> findById(@PathVariable Integer id);
+    Result<Sku> findById(@PathVariable Long id);
 
     /***
-     * 查询Brand全部数据
+     * 查询Sku全部数据
      * @return
      */
     @GetMapping
-    Result<List<Brand>> findAll();
+    Result<List<Sku>> findAll();
+
+    @GetMapping("/status/{status}")
+    Result<List<Sku>> findByStatus(@PathVariable String status);
 }

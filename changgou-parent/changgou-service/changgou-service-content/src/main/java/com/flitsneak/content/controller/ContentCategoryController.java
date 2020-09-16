@@ -1,10 +1,10 @@
 package com.flitsneak.content.controller;
 
+import com.flitsneak.entity.Result;
+import com.flitsneak.entity.StatusCode;
 import com.flitsneak.pojo.ContentCategory;
 import com.flitsneak.content.service.ContentCategoryService;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
-import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +35,7 @@ public class ContentCategoryController {
     public Result<PageInfo> findPage(@RequestBody(required = false)  ContentCategory contentCategory, @PathVariable  int page, @PathVariable  int size){
         //调用ContentCategoryService实现分页条件查询ContentCategory
         PageInfo<ContentCategory> pageInfo = contentCategoryService.findPage(contentCategory, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK,"查询成功",pageInfo);
     }
 
     /***

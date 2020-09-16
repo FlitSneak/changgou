@@ -1,6 +1,6 @@
 package com.flitsneak.goods.service;
 
-import com.changgou.goods.pojo.Brand;
+import com.flitsneak.goods.pojo.Brand;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

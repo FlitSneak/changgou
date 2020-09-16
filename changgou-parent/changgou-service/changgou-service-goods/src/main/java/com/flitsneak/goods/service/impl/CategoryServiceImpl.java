@@ -1,7 +1,7 @@
 package com.flitsneak.goods.service.impl;
 
 import com.flitsneak.goods.dao.CategoryMapper;
-import com.changgou.goods.pojo.Category;
+import com.flitsneak.goods.pojo.Category;
 import com.flitsneak.goods.service.CategoryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

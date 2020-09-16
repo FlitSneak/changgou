@@ -1,7 +1,7 @@
-package com.flitsneak.goods.feign;
-import com.changgou.goods.pojo.StockBack;
+package com.flitsneak.feign;
+import com.flitsneak.entity.Result;
+import com.flitsneak.goods.pojo.Category;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.List;
  * @Date 2019/6/18 13:58
  *****/
 @FeignClient(name="goods")
-@RequestMapping("/stockBack")
-public interface StockBackFeign {
+@RequestMapping("/category")
+public interface CategoryFeign {
 
     /***
-     * StockBack分页条件搜索实现
-     * @param stockBack
+     * Category分页条件搜索实现
+     * @param category
      * @param page
      * @param size
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    Result<PageInfo> findPage(@RequestBody(required = false) StockBack stockBack, @PathVariable int page, @PathVariable  int size);
+    Result<PageInfo> findPage(@RequestBody(required = false) Category category, @PathVariable int page, @PathVariable  int size);
 
     /***
-     * StockBack分页搜索实现
+     * Category分页搜索实现
      * @param page:当前页
      * @param size:每页显示多少条
      * @return
@@ -37,11 +37,11 @@ public interface StockBackFeign {
 
     /***
      * 多条件搜索品牌数据
-     * @param stockBack
+     * @param category
      * @return
      */
     @PostMapping(value = "/search" )
-    Result<List<StockBack>> findList(@RequestBody(required = false) StockBack stockBack);
+    Result<List<Category>> findList(@RequestBody(required = false) Category category);
 
     /***
      * 根据ID删除品牌数据
@@ -49,37 +49,37 @@ public interface StockBackFeign {
      * @return
      */
     @DeleteMapping(value = "/{id}" )
-    Result delete(@PathVariable String id);
+    Result delete(@PathVariable Integer id);
 
     /***
-     * 修改StockBack数据
-     * @param stockBack
+     * 修改Category数据
+     * @param category
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    Result update(@RequestBody StockBack stockBack,@PathVariable String id);
+    Result update(@RequestBody Category category,@PathVariable Integer id);
 
     /***
-     * 新增StockBack数据
-     * @param stockBack
+     * 新增Category数据
+     * @param category
      * @return
      */
     @PostMapping
-    Result add(@RequestBody StockBack stockBack);
+    Result add(@RequestBody Category category);
 
     /***
-     * 根据ID查询StockBack数据
+     * 根据ID查询Category数据
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    Result<StockBack> findById(@PathVariable String id);
+    Result<Category> findById(@PathVariable Integer id);
 
     /***
-     * 查询StockBack全部数据
+     * 查询Category全部数据
      * @return
      */
     @GetMapping
-    Result<List<StockBack>> findAll();
+    Result<List<Category>> findAll();
 }

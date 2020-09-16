@@ -1,7 +1,7 @@
 package com.flitsneak.goods.service.impl;
 
 import com.flitsneak.goods.dao.SkuMapper;
-import com.changgou.goods.pojo.Sku;
+import com.flitsneak.goods.pojo.Sku;
 import com.flitsneak.goods.service.SkuService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -202,5 +202,16 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public List<Sku> findAll() {
         return skuMapper.selectAll();
+    }
+
+    /***
+     * 根据状态查询SKU列表
+     * @return
+     */
+    @Override
+    public List<Sku> findByStatus(String status) {
+        Sku sku = new Sku();
+        sku.setStatus(status);
+        return skuMapper.select(sku);
     }
 }

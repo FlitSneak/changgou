@@ -1,9 +1,9 @@
 package com.flitsneak.goods.service.impl;
 
-import com.changgou.goods.pojo.Category;
+import com.flitsneak.goods.pojo.Category;
 import com.flitsneak.goods.dao.CategoryMapper;
 import com.flitsneak.goods.dao.SpecMapper;
-import com.changgou.goods.pojo.Spec;
+import com.flitsneak.goods.pojo.Spec;
 import com.flitsneak.goods.service.SpecService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

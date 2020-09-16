@@ -1,7 +1,7 @@
 package com.flitsneak.goods.service.impl;
 
 import com.flitsneak.goods.dao.PrefMapper;
-import com.changgou.goods.pojo.Pref;
+import com.flitsneak.goods.pojo.Pref;
 import com.flitsneak.goods.service.PrefService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

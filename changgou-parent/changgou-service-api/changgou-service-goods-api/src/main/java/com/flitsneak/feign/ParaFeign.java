@@ -1,7 +1,7 @@
-package com.flitsneak.goods.feign;
-import com.changgou.goods.pojo.Template;
+package com.flitsneak.feign;
+import com.flitsneak.entity.Result;
+import com.flitsneak.goods.pojo.Para;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.List;
  * @Date 2019/6/18 13:58
  *****/
 @FeignClient(name="goods")
-@RequestMapping("/template")
-public interface TemplateFeign {
+@RequestMapping("/para")
+public interface ParaFeign {
 
     /***
-     * Template分页条件搜索实现
-     * @param template
+     * Para分页条件搜索实现
+     * @param para
      * @param page
      * @param size
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    Result<PageInfo> findPage(@RequestBody(required = false) Template template, @PathVariable int page, @PathVariable  int size);
+    Result<PageInfo> findPage(@RequestBody(required = false) Para para, @PathVariable int page, @PathVariable  int size);
 
     /***
-     * Template分页搜索实现
+     * Para分页搜索实现
      * @param page:当前页
      * @param size:每页显示多少条
      * @return
@@ -37,11 +37,11 @@ public interface TemplateFeign {
 
     /***
      * 多条件搜索品牌数据
-     * @param template
+     * @param para
      * @return
      */
     @PostMapping(value = "/search" )
-    Result<List<Template>> findList(@RequestBody(required = false) Template template);
+    Result<List<Para>> findList(@RequestBody(required = false) Para para);
 
     /***
      * 根据ID删除品牌数据
@@ -52,34 +52,34 @@ public interface TemplateFeign {
     Result delete(@PathVariable Integer id);
 
     /***
-     * 修改Template数据
-     * @param template
+     * 修改Para数据
+     * @param para
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    Result update(@RequestBody Template template,@PathVariable Integer id);
+    Result update(@RequestBody Para para,@PathVariable Integer id);
 
     /***
-     * 新增Template数据
-     * @param template
+     * 新增Para数据
+     * @param para
      * @return
      */
     @PostMapping
-    Result add(@RequestBody Template template);
+    Result add(@RequestBody Para para);
 
     /***
-     * 根据ID查询Template数据
+     * 根据ID查询Para数据
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    Result<Template> findById(@PathVariable Integer id);
+    Result<Para> findById(@PathVariable Integer id);
 
     /***
-     * 查询Template全部数据
+     * 查询Para全部数据
      * @return
      */
     @GetMapping
-    Result<List<Template>> findAll();
+    Result<List<Para>> findAll();
 }

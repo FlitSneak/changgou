@@ -1,10 +1,10 @@
 package com.flitsneak.goods.controller;
 
-import com.changgou.goods.pojo.Template;
+import com.flitsneak.entity.Result;
+import com.flitsneak.entity.StatusCode;
+import com.flitsneak.goods.pojo.Template;
 import com.flitsneak.goods.service.TemplateService;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
-import entity.StatusCode;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class TemplateController {
     public Result<PageInfo> findPage(@RequestBody(required = false) @ApiParam(name = "Template对象",value = "传入JSON数据",required = false) Template template, @PathVariable  int page, @PathVariable  int size){
         //调用TemplateService实现分页条件查询Template
         PageInfo<Template> pageInfo = templateService.findPage(template, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK,"查询成功",pageInfo);
     }
 
     /***

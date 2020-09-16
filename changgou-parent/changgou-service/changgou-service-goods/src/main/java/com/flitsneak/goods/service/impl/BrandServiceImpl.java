@@ -1,7 +1,7 @@
 package com.flitsneak.goods.service.impl;
 
 import com.flitsneak.goods.dao.BrandMapper;
-import com.changgou.goods.pojo.Brand;
+import com.flitsneak.goods.pojo.Brand;
 import com.flitsneak.goods.service.BrandService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

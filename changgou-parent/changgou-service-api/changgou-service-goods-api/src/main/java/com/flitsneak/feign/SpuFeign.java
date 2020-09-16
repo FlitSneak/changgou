@@ -1,7 +1,7 @@
-package com.flitsneak.goods.feign;
-import com.changgou.goods.pojo.Sku;
+package com.flitsneak.feign;
+import com.flitsneak.entity.Result;
+import com.flitsneak.goods.pojo.Spu;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.List;
  * @Date 2019/6/18 13:58
  *****/
 @FeignClient(name="goods")
-@RequestMapping("/sku")
-public interface SkuFeign {
+@RequestMapping("/spu")
+public interface SpuFeign {
 
     /***
-     * Sku分页条件搜索实现
-     * @param sku
+     * Spu分页条件搜索实现
+     * @param spu
      * @param page
      * @param size
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    Result<PageInfo> findPage(@RequestBody(required = false) Sku sku, @PathVariable int page, @PathVariable  int size);
+    Result<PageInfo> findPage(@RequestBody(required = false) Spu spu, @PathVariable int page, @PathVariable  int size);
 
     /***
-     * Sku分页搜索实现
+     * Spu分页搜索实现
      * @param page:当前页
      * @param size:每页显示多少条
      * @return
@@ -37,11 +37,11 @@ public interface SkuFeign {
 
     /***
      * 多条件搜索品牌数据
-     * @param sku
+     * @param spu
      * @return
      */
     @PostMapping(value = "/search" )
-    Result<List<Sku>> findList(@RequestBody(required = false) Sku sku);
+    Result<List<Spu>> findList(@RequestBody(required = false) Spu spu);
 
     /***
      * 根据ID删除品牌数据
@@ -52,34 +52,34 @@ public interface SkuFeign {
     Result delete(@PathVariable Long id);
 
     /***
-     * 修改Sku数据
-     * @param sku
+     * 修改Spu数据
+     * @param spu
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    Result update(@RequestBody Sku sku,@PathVariable Long id);
+    Result update(@RequestBody Spu spu,@PathVariable Long id);
 
     /***
-     * 新增Sku数据
-     * @param sku
+     * 新增Spu数据
+     * @param spu
      * @return
      */
     @PostMapping
-    Result add(@RequestBody Sku sku);
+    Result add(@RequestBody Spu spu);
 
     /***
-     * 根据ID查询Sku数据
+     * 根据ID查询Spu数据
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    Result<Sku> findById(@PathVariable Long id);
+    Result<Spu> findById(@PathVariable Long id);
 
     /***
-     * 查询Sku全部数据
+     * 查询Spu全部数据
      * @return
      */
     @GetMapping
-    Result<List<Sku>> findAll();
+    Result<List<Spu>> findAll();
 }

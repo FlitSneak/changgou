@@ -1,7 +1,7 @@
-package com.flitsneak.goods.feign;
-import com.changgou.goods.pojo.Para;
+package com.flitsneak.feign;
+import com.flitsneak.entity.Result;
+import com.flitsneak.goods.pojo.StockBack;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.List;
  * @Date 2019/6/18 13:58
  *****/
 @FeignClient(name="goods")
-@RequestMapping("/para")
-public interface ParaFeign {
+@RequestMapping("/stockBack")
+public interface StockBackFeign {
 
     /***
-     * Para分页条件搜索实现
-     * @param para
+     * StockBack分页条件搜索实现
+     * @param stockBack
      * @param page
      * @param size
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    Result<PageInfo> findPage(@RequestBody(required = false) Para para, @PathVariable int page, @PathVariable  int size);
+    Result<PageInfo> findPage(@RequestBody(required = false) StockBack stockBack, @PathVariable int page, @PathVariable  int size);
 
     /***
-     * Para分页搜索实现
+     * StockBack分页搜索实现
      * @param page:当前页
      * @param size:每页显示多少条
      * @return
@@ -37,11 +37,11 @@ public interface ParaFeign {
 
     /***
      * 多条件搜索品牌数据
-     * @param para
+     * @param stockBack
      * @return
      */
     @PostMapping(value = "/search" )
-    Result<List<Para>> findList(@RequestBody(required = false) Para para);
+    Result<List<StockBack>> findList(@RequestBody(required = false) StockBack stockBack);
 
     /***
      * 根据ID删除品牌数据
@@ -49,37 +49,37 @@ public interface ParaFeign {
      * @return
      */
     @DeleteMapping(value = "/{id}" )
-    Result delete(@PathVariable Integer id);
+    Result delete(@PathVariable String id);
 
     /***
-     * 修改Para数据
-     * @param para
+     * 修改StockBack数据
+     * @param stockBack
      * @param id
      * @return
      */
     @PutMapping(value="/{id}")
-    Result update(@RequestBody Para para,@PathVariable Integer id);
+    Result update(@RequestBody StockBack stockBack,@PathVariable String id);
 
     /***
-     * 新增Para数据
-     * @param para
+     * 新增StockBack数据
+     * @param stockBack
      * @return
      */
     @PostMapping
-    Result add(@RequestBody Para para);
+    Result add(@RequestBody StockBack stockBack);
 
     /***
-     * 根据ID查询Para数据
+     * 根据ID查询StockBack数据
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    Result<Para> findById(@PathVariable Integer id);
+    Result<StockBack> findById(@PathVariable String id);
 
     /***
-     * 查询Para全部数据
+     * 查询StockBack全部数据
      * @return
      */
     @GetMapping
-    Result<List<Para>> findAll();
+    Result<List<StockBack>> findAll();
 }

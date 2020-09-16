@@ -1,10 +1,10 @@
 package com.flitsneak.goods.controller;
 
-import com.changgou.goods.pojo.CategoryBrand;
+import com.flitsneak.entity.Result;
+import com.flitsneak.entity.StatusCode;
+import com.flitsneak.goods.pojo.CategoryBrand;
 import com.flitsneak.goods.service.CategoryBrandService;
 import com.github.pagehelper.PageInfo;
-import entity.Result;
-import entity.StatusCode;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class CategoryBrandController {
     public Result<PageInfo> findPage(@RequestBody(required = false) @ApiParam(name = "CategoryBrand对象",value = "传入JSON数据",required = false) CategoryBrand categoryBrand, @PathVariable  int page, @PathVariable  int size){
         //调用CategoryBrandService实现分页条件查询CategoryBrand
         PageInfo<CategoryBrand> pageInfo = categoryBrandService.findPage(categoryBrand, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK,"查询成功",pageInfo);
     }
 
     /***

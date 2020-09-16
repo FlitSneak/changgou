@@ -1,6 +1,6 @@
 package com.flitsneak.goods.service;
 
-import com.changgou.goods.pojo.Sku;
+import com.flitsneak.goods.pojo.Sku;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -66,4 +66,9 @@ public interface SkuService {
      * @return
      */
     List<Sku> findAll();
+
+    /**
+     * 根据状态查询SKU列表
+     */
+    List<Sku> findByStatus(String status);
 }
