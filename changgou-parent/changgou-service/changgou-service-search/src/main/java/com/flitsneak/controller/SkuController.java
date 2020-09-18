@@ -26,12 +26,12 @@ public class SkuController {
         return new Result(true, StatusCode.OK,"导入数据到索引库中成功！");
     }
     /**
-     * 搜索
+     * 搜索商品数据
      * @param searchMap
      * @return
      */
-    @PostMapping
-    public Map search(@RequestBody(required = false) Map searchMap){
+    @GetMapping
+    public Map search(@RequestParam(required = false) Map searchMap){
         return  skuService.search(searchMap);
     }
 }

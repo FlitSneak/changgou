@@ -74,7 +74,7 @@ public interface CategoryFeign {
      * @return
      */
     @GetMapping("/{id}")
-    Result<Category> findById(@PathVariable Integer id);
+    Result<Category> findById(@PathVariable(name = "id") Integer id);
 
     /***
      * 查询Category全部数据

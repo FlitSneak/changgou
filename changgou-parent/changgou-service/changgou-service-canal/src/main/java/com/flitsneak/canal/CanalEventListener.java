@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.flitsneak.content.feign.ContentFeign;
 import com.flitsneak.entity.Result;
+import com.flitsneak.item.feign.PageFeign;
 import com.flitsneak.pojo.Content;
 import com.xpand.starter.canal.annotation.DeleteListenPoint;
 import com.xpand.starter.canal.annotation.InsertListenPoint;
@@ -21,6 +22,9 @@ public class CanalEventListener {
     //字符串
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private PageFeign pageFeign;
     /***
      * 增加数据监听
      * @param eventType
@@ -50,7 +54,38 @@ public class CanalEventListener {
         System.out.println("DeleteListenPoint");
     }
 
+    @ListenPoint(destination = "example",
+            schema = "changgou_goods",
+            table = {"tb_spu"},
+            eventType = {CanalEntry.EventType.UPDATE, CanalEntry.EventType.INSERT, CanalEntry.EventType.DELETE})
+    public void onEventCustomSpu(CanalEntry.EventType eventType, CanalEntry.RowData rowData) {
 
+        //判断操作类型
+        if (eventType == CanalEntry.EventType.DELETE) {
+            String spuId = "";
+            List<CanalEntry.Column> beforeColumnsList = rowData.getBeforeColumnsList();
+            for (CanalEntry.Column column : beforeColumnsList) {
+                if (column.getName().equals("id")) {
+                    spuId = column.getValue();//spuid
+                    break;
+                }
+            }
+            //todo 删除静态页
+
+        }else{
+            //新增 或者 更新
+            List<CanalEntry.Column> afterColumnsList = rowData.getAfterColumnsList();
+            String spuId = "";
+            for (CanalEntry.Column column : afterColumnsList) {
+                if (column.getName().equals("id")) {
+                    spuId = column.getValue();
+                    break;
+                }
+            }
+            //更新 生成静态页
+            pageFeign.createHtml(Long.valueOf(spuId));
+        }
+    }
 
     //自定义数据库的 操作来监听
     //destination = "example"
