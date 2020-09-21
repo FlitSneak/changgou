@@ -14,6 +14,7 @@
         <module>changgou-service</module>
         <module>changgou-service-api</module>
         <module>changgou-web</module>
+        <module>changgou-gateway</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
@@ -39,7 +40,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!--鉴权-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
         <!--fastjson-->
         <dependency>
             <groupId>com.alibaba</groupId>
