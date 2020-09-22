@@ -15,6 +15,7 @@
         <module>changgou-service-api</module>
         <module>changgou-web</module>
         <module>changgou-gateway</module>
+        <module>changgou-user-oauth</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
