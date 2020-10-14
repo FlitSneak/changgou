@@ -1,9 +1,6 @@
 package com.flitsneak.user.controller;
 import com.alibaba.fastjson.JSON;
-import com.flitsneak.entity.BCrypt;
-import com.flitsneak.entity.JwtUtil;
-import com.flitsneak.entity.Result;
-import com.flitsneak.entity.StatusCode;
+import com.flitsneak.entity.*;
 import com.flitsneak.user.pojo.User;
 import com.flitsneak.user.service.UserService;
 import com.github.pagehelper.PageInfo;
@@ -11,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 
 import com.netflix.client.IResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -34,6 +32,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private TokenDecode tokenDecode;
 
     /***
      * User分页条件搜索实现
@@ -79,6 +79,8 @@ public class UserController {
      * @param id
      * @return
      */
+    //权限控制注解,表示只有admin角色才能访问该方法，其他角色无权访问。
+    @PreAuthorize("hasAnyAuthority('admin')")
     @DeleteMapping(value = "/{id}" )
     public Result delete(@PathVariable String id){
         //调用UserService实现根据主键删除
@@ -118,7 +120,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    @GetMapping({"/{id}","/load/{id}"})
     public Result<User> findById(@PathVariable String id){
         //调用UserService实现根据主键查询User
         User user = userService.findById(id);
@@ -158,5 +160,21 @@ public class UserController {
             return new Result(true,StatusCode.OK,"登陆成功",jwt);
         }
         return new Result(false,StatusCode.LOGINERROR,"帐号或者密码错误！");
+    }
+
+
+    /***
+     * 增加用户积分
+     * @param points:要添加的积分
+     */
+    @GetMapping(value = "/points/add")
+    public Result addPoints(Integer points){
+        //获取用户名
+        Map<String, String> userMap = tokenDecode.getUserInfo();
+        String username = userMap.get("username");
+
+        //添加积分
+        userService.addUserPoints(username,points);
+        return new Result(true,StatusCode.OK,"添加积分成功！");
     }
 }

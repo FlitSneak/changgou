@@ -1,7 +1,5 @@
 package com.flitsneak.gateway.filter;
 
-import com.flitsneak.gateway.util.JwtUtil;
-import io.jsonwebtoken.Claims;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -13,9 +11,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+/**
+ * 全局过滤器 :用于鉴权(获取令牌 解析 判断)
+ *
+ * @author www.itheima.com
+ * @version 1.0
+ * @package com.changgou.filter *
+ * @since 1.0
+ */
 @Component
 public class AuthorizeFilter implements GlobalFilter, Ordered {
     private static final String AUTHORIZE_TOKEN = "Authorization";
+
+    private static final String loginURL = "http://localhost:6001/oauth/login";
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
@@ -25,7 +34,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         ServerHttpResponse response = exchange.getResponse();
 
         //3.判断 是否为登录的URL 如果是 放行
-        if(request.getURI().getPath().startsWith("/api/user/login")){
+        if(UrlFilter.hasAutorize(request.getURI().toString())){
             return chain.filter(exchange);
         }
         //4.判断 是否为登录的URL 如果不是      权限校验
@@ -48,8 +57,10 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         }
 
         if(StringUtils.isEmpty(token)){
-            //4.4. 如果没有数据 结束.
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            //4.4. 如果没有数据    没有登录,要重定向到登录到页面
+            response.setStatusCode(HttpStatus.SEE_OTHER);//303 302
+            //location 指定的就是路径
+            response.getHeaders().set("Location",loginURL+"?From="+request.getURI().toString());
             return response.setComplete();
         }
 
@@ -57,7 +68,9 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         //5 解析令牌数据 ( 判断解析是否正确,正确 就放行 ,否则 结束)
 
         try {
-            Claims claims = JwtUtil.parseJWT(token);
+            //Claims claims = JwtUtil.parseJWT(token);
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,6 +78,12 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
+
+        //添加头信息 传递给 各个微服务()
+        request.mutate().header(AUTHORIZE_TOKEN,"Bearer "+ token);
+
+
+
         return chain.filter(exchange);
     }
 

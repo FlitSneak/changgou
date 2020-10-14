@@ -1,6 +1,6 @@
 package com.changgou.oauth.controller;
 
-import com.changgou.oauth.service.com.changgou.oauth.service.AuthService;
+import com.changgou.oauth.service.AuthService;
 import com.changgou.oauth.util.AuthToken;
 import com.changgou.oauth.util.CookieUtil;
 import com.flitsneak.entity.Result;
@@ -16,9 +16,15 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 
+/*****
+ * @Author: www.itheima
+ * @Date: 2019/7/7 16:42
+ * @Description: com.changgou.oauth.controller
+ ****/
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/userx")
 public class AuthController {
+
     //客户端ID
     @Value("${auth.clientId}")
     private String clientId;
