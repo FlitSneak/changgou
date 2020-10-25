@@ -63,5 +63,16 @@ public interface OrderService {
      */
     List<Order> findAll();
 
-    int add(Order order);
+    Order add(Order order);
+    /***
+     * 根据订单ID修改订单状态
+     * @param transactionid 交易流水号
+     * @param orderId
+     */
+    void updateStatus(String orderId,String transactionid);
+    /***
+     * 删除订单操作
+     * @param id
+     */
+    void deleteOrder(String id);
 }

@@ -260,7 +260,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public int add(Order order) {
+    public Order add(Order order) {
         //查询出用户的所有购物车
         List<OrderItem> orderItems = cartService.list(order.getUsername());
 
@@ -305,8 +305,46 @@ public class OrderServiceImpl implements OrderService {
 
         //增加用户积分
         userFeign.addPoints(10);
+
+        //线上支付，记录订单
+        if (order.getPayType().equalsIgnoreCase("1")){
+            //将支付记录存入到Redis namespace key value
+            redisTemplate.boundHashOps("Order").put(order.getId(),order);
+        }
         //清除Redis缓存购物车数据
-        redisTemplate.delete("Cart_"+order.getUsername());
-        return count;
+       // redisTemplate.delete("Cart_"+order.getUsername());
+        return order;
+    }
+    /***
+     * 订单修改
+     * @param orderId
+     * @param transactionid  微信支付的交易流水号
+     */
+    @Override
+    public void updateStatus(String orderId,String transactionid) {
+        //1.修改订单
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+        order.setUpdateTime(new Date());    //时间也可以从微信接口返回过来，这里为了方便，我们就直接使用当前时间了
+        order.setPayTime(order.getUpdateTime());    //不允许这么写
+        order.setTransactionId(transactionid);  //交易流水号
+        order.setPayStatus("1");    //已支付
+        orderMapper.updateByPrimaryKeySelective(order);
+
+        //2.删除Redis中的订单记录
+        redisTemplate.boundHashOps("Order").delete(orderId);
+    }
+    /***
+     * 订单的删除操作
+     */
+    @Override
+    public void deleteOrder(String id) {
+        //改状态
+        Order order = (Order) redisTemplate.boundHashOps("Order").get(id);
+        order.setUpdateTime(new Date());
+        order.setPayStatus("2");    //支付失败
+        orderMapper.updateByPrimaryKeySelective(order);
+
+        //删除缓存
+        redisTemplate.boundHashOps("Order").delete(id);
     }
 }
